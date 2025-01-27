@@ -7,7 +7,7 @@ e-mail: giulianabelen.riverarecinos.e@skola.karlskrona.se
 Version: menu
 Revision:
 Script namn:
-Latest update: 
+Latest update: 2025/01/27
 --------------------------
 '''
 #Importing phyton modules

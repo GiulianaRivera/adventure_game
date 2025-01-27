@@ -7,13 +7,15 @@ e-mail: giulibelenrivera@gmail.com
 Version:
 Revision:
 Module name: Common
-Senaste updateringen:
+Senaste updateringen: 2025/01/27
 --------------------------
 '''
 #In this module I will be defining funktions that will be common throughout the project 
 #phyton libraries
 import os 
 import sys
+
+from game_over import game_over
 
 
 #Defining funktion to clear the screen 
@@ -98,15 +100,16 @@ def heath_icon(health):
     #health = 100
     if health == 100:
         my_icon = "AWESOME"
-    elif health == 80:
+    elif health == 80 or health == 90:
         my_icon = "LOL"
-    elif health == 60:
+    elif health == 60 or health == 70:
         my_icon= "UWU"
-    elif health == 40:
+    elif health == 40 or health == 50:
         my_icon = "YOLO"
-    elif health == 20:
+    elif health == 20 or health == 30:
         my_icon = "SHEIT"
-    elif health == 0:
+    elif health == 0 or health == 10:
         my_icon = "WTF"
+
     return(my_icon)
 

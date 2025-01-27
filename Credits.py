@@ -6,7 +6,7 @@ Class: TE2A
 e-mail: giulianabelen.riverarecinos.e@skola.karlskrona.se
 Version: menu
 Revision:
-Script namn:
+Module name: Credits
 Latest update: 2025/01/14 09:31
 --------------------------
 '''
@@ -70,4 +70,4 @@ def game_credits ():
             print(MAIN_LINE)
     time.sleep(5)
     os.system('cls')
-    menu.game_menu()
+    menu.game_menu(True)

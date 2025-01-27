@@ -8,19 +8,21 @@ e-mail: giulianabelen.riverarecinos.e@skola.karlskrona.se
 Version: 
 Revision:
 Module name: Minigames
-Latest update: 
+Latest update: 2025/01/27
 --------------------------
 '''
-
+#In this module I will put the funtions for the minigames that players need to play to get the key to the rooms. 
 #Imports
 import random
 
-def mini_guess_number():
+#Defining a funtion to a mini game of guess the random
+def mini_guess_number(health):
 
-    #Variabler 
+    #Color Variables
     RED = "\033[31m"
     LIGHT_BLUE = "\033[94m"
     RESET = "\033[0m"
+    #Variables 
     INTRO_GAME = "To enter this room you will have to guess a number between 1 and 20, you have five attempts. You needing luck is an understatement"
     random_number = random.randint(1,20)
     #print(random_number)
@@ -33,10 +35,12 @@ def mini_guess_number():
         #print(guess)
         if guess == random_number:
             print(f"{LIGHT_BLUE} You guessed it rigth you may enter. Here you go {RESET}🗝")
+            return(0,health)
             break
         elif attempt_count == 4:
             print(f"{RED}You failed to get a hold of the key. Get out of here!{RESET}")
-        
+            health -= 20
+            return (20, health)
         elif guess < random_number:
             print("WRONG!! Too low, guess a higher number ◕_◕")
         elif guess > random_number:
@@ -44,7 +48,9 @@ def mini_guess_number():
     
         attempt_count += 1
 
-def mini_rock_papper_scissor():
+
+#defining a funtion to rock paper scissor game 
+def mini_rock_papper_scissor(health):
     #Variables 
     RED = "\033[31m"
     LIGHT_BLUE = "\033[94m"
@@ -107,15 +113,19 @@ def mini_rock_papper_scissor():
         print()
         if wins_person == 3:
             print (f"{LIGHT_BLUE}You win, it wasnt terrible. Here you go {RESET}🗝")
+            return(0,health)
             break
         elif wins_computer == 3:
             print(f"{RED}I win you looser, GET OUT! {RESET} (•-•)⌐")
+            health -= 20
+            return (20, health)
             break
     
-
+#Defining funtion to mini 21 game
 def mini_21(health):
 
     #Variables
+    #Color variables
     RED = "\033[31m"
     LIGHT_BLUE = "\033[94m"
     RESET = "\033[0m" 
@@ -164,4 +174,78 @@ def mini_21(health):
             health -= 20
             return (20, health)
             break           
+
+
+#Defining funtion to hangman game
+def mini_hangman(health):
+    # Function to randomly choose a word from the list
+    def words():
+        hangman_list = ["Ergonomi", "Konditionsträning", "Aerob", "Stressorer", "Stretch"]
+        return random.choice(hangman_list).lower()
+
+    # Function to show the word with guessed letters revealed
+    def show_guesses(word, guessed_letters):
+        showing = ""
+        for letter in word:
+            if letter in guessed_letters:
+                showing += letter
+            else:
+                showing += "_"
+        return showing
+
+    # Main game function
+    
+    #Color variables
+    RED = "\033[31m"
+    LIGHT_BLUE = "\033[94m"
+    RESET = "\033[0m" 
+
+    word = words()
+    guessed_letters = set()  # To store unique guessed letters
+    wrong_guesses = 0
+    max_wrong_guesses = 6
+
+    print("You have now entered the prestigious Aula-D, where thousands of students have failed.")
+    print("You will face off against Samuel in a game of hangman")
+    print("If you loose you will loose 20 health points, if you win you get the key to this room")
+
+    while wrong_guesses < max_wrong_guesses:
+        # Display the current state of the word
+        print(f"The word: {show_guesses(word, guessed_letters)}")
+        print(f"Wrong guesses left: {max_wrong_guesses - wrong_guesses}")
+        print(f"Guessed letters: {', '.join(sorted(guessed_letters))}\n")
+
+        # Player input
+        guess = input("Guess a letter: ").lower()
+
+        if not guess.isalpha() or len(guess) != 1:
+            print("You have to guess one letter only!")
+            continue
+
+        if guess in guessed_letters:
+            print("You already guessed that letter!")
+            continue
+
+        guessed_letters.add(guess)
+
+        # Check if the guess is in the word
+        if guess in word:
+            print(f"Good guess! The letter '{guess}' is in the word.\n")
+        else:
+            wrong_guesses += 1
+            print(f"Wrong! The letter '{guess}' is not in the word. ({wrong_guesses}/{max_wrong_guesses} wrong guesses)\n")
+                
+
+        # Check if the player has guessed the whole word
+        if all(letter in guessed_letters for letter in word):
+            print(f"{LIGHT_BLUE}You win! You guessed the whole word: {RESET} {word}!")
+            print(health)
+            return(0,health)
+            break
+
+    # If the player runs out of guesses
+    print(f"You lose! The word was: {word}.")
+    health -= 20
+    print(health)
+    return (20, health)
 

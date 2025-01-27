@@ -12,11 +12,13 @@ Latest update:
 '''
 
 import common
+import game_over
 import icons
 import time
 import door
 import menu
 import os 
+import food 
 def game_navigation(first_time):
 
     GREEN = "\033[32m"
@@ -76,14 +78,21 @@ def game_navigation(first_time):
 
         #if the player has the key it will be True but if they dont all of them are false 
         #All the keys give you the key to the final room 
-        keys = [False, False, False, False ]
+        keys = [False, False, False, False, False ]
 
         #Weapons = [ sword, shield ]
         weapons = [ ("SWORD", False), ("SHIELD",False) ]
         first_time = False
-    
-    while True:
 
+        #Food
+        food_0 = True # Bread
+        food_1 = True #Cafe
+    while True:
+        #Dead routine
+        if health <= 0:
+            print("You died.")
+            time.sleep(2)
+            game_over.game_over()
         #START LOBBY
         if rendering == 1:
             #Where i am: lobby
@@ -144,7 +153,7 @@ def game_navigation(first_time):
             #print(my_string)
 
             loobypic = True
-
+            is_chef = False
             #Room color
             room_color = 1
 
@@ -203,7 +212,7 @@ def game_navigation(first_time):
             #print(my_string)
 
             loobypic = False
-
+            is_chef = False
             #Room color
             room_color = 1
 
@@ -268,6 +277,7 @@ def game_navigation(first_time):
             #print(my_string)
 
             loobypic = False
+            is_chef = False
 
             #Room color
             room_color = 2
@@ -326,7 +336,7 @@ def game_navigation(first_time):
             #print(my_string)
 
             loobypic = False
-
+            is_chef = True
             #Room color
             room_color = 3
 
@@ -385,6 +395,7 @@ def game_navigation(first_time):
             #print(my_string)
 
             loobypic = False
+            is_chef = False
 
             #Room color
             room_color = 6
@@ -443,7 +454,7 @@ def game_navigation(first_time):
             #print(my_string)
 
             loobypic = False
-
+            is_chef = False
             #Room color
             room_color = 4
 
@@ -501,6 +512,7 @@ def game_navigation(first_time):
             #print(my_string)
 
             loobypic = False
+            is_chef = False
 
             #Room color
             room_color = 5
@@ -512,9 +524,16 @@ def game_navigation(first_time):
         print()
         print(my_string)
         print()
+        
         if loobypic == True:
             icons.game_emoji('LOBBYPIC')
             #print()
+        if is_chef == True:
+            my_chef =food.game_chef(health, food_0,food_1)
+            my_chef_health, my_chef_food_0, my_chef_food_1 = my_chef
+            health = my_chef_health
+            food_0 = my_chef_food_0
+            food_1 = my_chef_food_1 
 
         health_icon = common.heath_icon(health)
         #print(health_icon)
@@ -547,15 +566,29 @@ def game_navigation(first_time):
             os.system('cls')
         elif _my_option == 'w':
             print("AULA D")
-            rendering = 2
             os.system('cls')
-            door.game_door_animation('AULA D',1,True)
+            main_result_aulad= door.game_door_animation('AULA D',1,keys[1],health) #(0 or 20, health-0 or health-20)(0,100)
+            if keys[1]== False:
+                #print(main_result_aulad)
+                
+                aulad_result, health_aulad = main_result_aulad
+                health = health_aulad
+
+                if aulad_result == 0:
+                    keys[1]=True
+                    rendering = 2
+                else:
+                    rendering = 1
+            else:
+                rendering = 2
+
             time.sleep(1)
             os.system('cls')
+            
         elif _my_option == 'q':
             print("SELMA ROOM")
             os.system('cls')
-            main_result_selma= door.game_door_animation('SELMA ROOM',2,keys[0], health) #(0 o 20, health-0 o health-20)(0,100)
+            main_result_selma= door.game_door_animation('SELMA ROOM',2,keys[0], health) #(0 or 20, health-0 or health-20)(0,100)
             if keys[0]== False:
                 selma_result, health_selma = main_result_selma
                 health = health_selma
@@ -571,33 +604,83 @@ def game_navigation(first_time):
             time.sleep(1)
             os.system('cls')
         elif _my_option == 'e':
-            print('CAFETERIA')
-            rendering = 4
+            print("CAFETERIA")
             os.system('cls')
-            door.game_door_animation('CAFETERIA',3)
+            main_result_cafeteria= door.game_door_animation('CAFETERIA',6,True, health) #(0 or 20, health-0 or health-20)(0,100)
+            rendering = 4
+            
             time.sleep(1)
             os.system('cls')
+
+           
         elif _my_option == 'a':
+            print("EXPEDITION")
+            '''
+            os.system('cls')
+            main_result_d048= door.game_door_animation('D048',4,keys[2], health) #(0 or 20, health-0 or health-20)(0,100)
+            if keys[2]== False:
+                d048_result, health_d048 = main_result_d048
+                health = health_d048
+
+                if d048_result == 0:
+                    keys[2]=True
+                    rendering = 6
+                else:
+                    rendering = 1
+            else:
+                rendering = 6
+            time.sleep(1)
+            os.system('cls')
+
+            '''
+            '''
             print('EXPEDITION')
             rendering = 5
             os.system('cls')
             door.game_door_animation('EXPEDITION',6,True)
             time.sleep(1)
             os.system('cls')
+            '''
         elif _my_option == 's':
+            print("D048")
+            os.system('cls')
+            main_result_d048= door.game_door_animation('D048',4,keys[2], health) #(0 or 20, health-0 or health-20)(0,100)
+            if keys[2]== False:
+                d048_result, health_d048 = main_result_d048
+                health = health_d048
+
+                if d048_result == 0:
+                    keys[2]=True
+                    rendering = 6
+                else:
+                    rendering = 1
+            else:
+                rendering = 6
+            time.sleep(1)
+            os.system('cls')
+
+            '''
             print('D048')
             rendering = 6
-            os.system('cls')
-            door.game_door_animation('D048',4,True)
-            time.sleep(1)
-            os.system('cls')
+            '''
         elif _my_option == 'd':
             print("D017")
-            rendering = 7
             os.system('cls')
-            door.game_door_animation('D017',5,True)
+            main_result_d017= door.game_door_animation('D017',3,keys[3], health) #(0 or 20, health-0 or health-20)(0,100)
+            if keys[3]== False:
+                d017_result, health_d017 = main_result_d017
+                health = health_d017
+
+                if d017_result == 0:
+                    keys[3]=True
+                    rendering = 7
+                else:
+                    rendering = 1
+            else:
+                rendering = 7
             time.sleep(1)
             os.system('cls')
+
         elif _my_option == 'm':
             os.system('cls')
             menu.game_menu()

@@ -40,3 +40,32 @@ def game_door_animation( my_room, color , key, health):
             time.sleep(2)
             health_value = minigames.mini_21(health) #(0 o 20, health-0 o healt-20)(0,100)
             return(health_value)
+    if my_room == 'AULA D':
+        if key == True:
+            print("You are now in Aula D")
+            return(health)
+        else:
+            print("To enter this room you will face off against Samuel. Good luck!")
+            time.sleep(2)
+            health_value =minigames.mini_hangman(health)
+            return(health_value)
+    if my_room == 'D048':
+        if key == True:
+            print("You are now in D048")
+            return(health)
+        else:
+            print("To get the key to this room you have to guess a random number that Kajsa is thinking about.")
+            time.sleep(2)
+            health_value =minigames.mini_guess_number(health)
+            return(health_value)
+    if my_room == 'D017':
+        if key == True:
+            print("Welcome to D017, its nice to have you here")
+            return(health)
+        else:
+            print("To enter this room you have to beat Cajed in a game of rock papper scissors")
+            time.sleep(2)
+            health_value =minigames.mini_rock_papper_scissor(health)
+            return(health_value)
+    if my_room == 'CAFETERIA':
+        return(health)
