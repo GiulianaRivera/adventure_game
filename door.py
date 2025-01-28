@@ -69,3 +69,11 @@ def game_door_animation( my_room, color , key, health):
             return(health_value)
     if my_room == 'CAFETERIA':
         return(health)
+    if my_room == 'EXPEDITION':
+        if key == True:
+            print("You will face off aginst the strong Magnus, to get the key please complete the task.")
+        else:
+            print("to get the key you have to beat Magnus.")
+            time.sleep(2)
+            health_value = minigames.last_quest(health)
+            return(health_value)

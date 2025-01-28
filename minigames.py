@@ -249,3 +249,16 @@ def mini_hangman(health):
     print(health)
     return (20, health)
 
+
+def last_quest(health):
+    print("Please answer this question in swedish with small letter (iykyk)")
+    question= input("What does Atom mean?: ")
+
+    if question == "odelbar":
+        print("You won!, nicely done! 🗝")
+        return(0,health)
+
+    else:
+        print("Try again later, maybe you will be smarter then.")
+        health -= 20
+        return (20, health)

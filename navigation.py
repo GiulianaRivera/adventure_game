@@ -78,7 +78,7 @@ def game_navigation(first_time):
 
         #if the player has the key it will be True but if they dont all of them are false 
         #All the keys give you the key to the final room 
-        keys = [False, False, False, False, False ]
+        keys = [False, False, False, False, False, False ]
 
         #Weapons = [ sword, shield ]
         weapons = [ ("SWORD", False), ("SHIELD",False) ]
@@ -615,24 +615,24 @@ def game_navigation(first_time):
            
         elif _my_option == 'a':
             print("EXPEDITION")
-            '''
+            
             os.system('cls')
-            main_result_d048= door.game_door_animation('D048',4,keys[2], health) #(0 or 20, health-0 or health-20)(0,100)
+            main_result_expedition= door.game_door_animation('EXPEDITION',4,keys[5], health) #(0 or 20, health-0 or health-20)(0,100)
             if keys[2]== False:
-                d048_result, health_d048 = main_result_d048
-                health = health_d048
+                expedition_result, health_expedition = main_result_expedition
+                health = health_expedition
 
-                if d048_result == 0:
-                    keys[2]=True
-                    rendering = 6
+                if expedition_result == 0:
+                    keys[5]=True
+                    rendering = 5
                 else:
                     rendering = 1
             else:
-                rendering = 6
+                rendering = 5
             time.sleep(1)
             os.system('cls')
 
-            '''
+            
             '''
             print('EXPEDITION')
             rendering = 5
@@ -683,9 +683,13 @@ def game_navigation(first_time):
 
         elif _my_option == 'm':
             os.system('cls')
-            menu.game_menu()
-            time.sleep(1)
-            os.system('cls')
+            print("The game will restart if you go back")
+            response= input("ARE YOU SURE? (Y/N): ")
+            if response == "Y" or response == "y":
+                menu.game_menu(True)
+                time.sleep(1)
+                os.system('cls')
+            
         else:
             print('INCORRECT  OPTION')
             
